@@ -37,22 +37,22 @@ msg "OpenCV will be downloaded in $DOWNLOAD_PATH"
 CUDA_PATH="/usr/local/cuda"
 
 msg "Updating system before installing new packages."
-sudo add-apt-repository -y ppa:jonathonf/ffmpeg-3 || fail
-sudo apt -y update || fail
-sudo apt -y upgrade || fail
-sudo apt -y dist-upgrade || fail
-sudo apt -y autoremove || fail
-sudo apt -y autoclean || fail
+#add-apt-repository -y ppa:jonathonf/ffmpeg-3 || fail
+apt -y update || fail
+apt -y upgrade || fail
+apt -y dist-upgrade || fail
+apt -y autoremove || fail
+apt -y autoclean || fail
 
 msg "Installing build tools."
-sudo apt install -y                                                           \
+apt install -y                                                           \
   build-essential                                                             \
   cmake                                                                       \
   git                                                                         \
 || fail
 
 msg "Installing GUI components."
-sudo apt install -y                                                           \
+apt install -y                                                           \
   libharfbuzz-dev                                                             \
   libvtk6-dev                                                                 \
   python-vtk6                                                                 \
@@ -60,7 +60,7 @@ sudo apt install -y                                                           \
 || fail
 
 msg "Installing media I/O componenets."
-sudo apt install -y                                                           \
+apt install -y                                                           \
   libavresample-dev                                                           \
   libgdal-dev                                                                 \
   libgphoto2-dev                                                              \
@@ -74,7 +74,7 @@ sudo apt install -y                                                           \
 || fail
 
 msg "Installing video I/O components."
-sudo apt install -y                                                           \
+apt install -y                                                           \
   libavcodec-dev                                                              \
   libavformat-dev                                                             \
   libdc1394-22-dev                                                            \
@@ -92,7 +92,7 @@ sudo apt install -y                                                           \
 || fail
 
 msg "Installing Streaming Components."
-sudo apt install -y                                                           \
+apt install -y                                                           \
   gstreamer1.0-doc                                                            \
   gstreamer1.0-libav                                                          \
   gstreamer1.0-plugins-bad                                                    \
@@ -108,7 +108,7 @@ sudo apt install -y                                                           \
 || fail
 
 msg "Installing Linear Algebra and Parallelism libs."
-sudo apt install -y                                                           \
+apt install -y                                                           \
   libboost-all-dev                                                            \
   libfftw3-dev                                                                \
   libfftw3-mpi-dev                                                            \
@@ -120,13 +120,13 @@ sudo apt install -y                                                           \
 
 
 msg "Installing LAPACKE libs."
-sudo apt install -y                                                           \
+apt install -y                                                           \
   checkinstall                                                                \
   liblapacke-dev                                                              \
 || fail
 
 msg "Installing SFM components."
-sudo apt install -y                                                           \
+apt install -y                                                           \
   libatlas-base-dev                                                           \
   libgflags-dev                                                               \
   libgoogle-glog-dev                                                          \
@@ -134,7 +134,7 @@ sudo apt install -y                                                           \
 || fail
 
 msg "Installing Python."
-sudo apt install -y                                                           \
+apt install -y                                                           \
   pylint                                                                      \
   python-dev                                                                  \
   python-numpy                                                                \
@@ -145,13 +145,13 @@ sudo apt install -y                                                           \
 || fail
 
 msg "Installing JDK."
-sudo apt install -y                                                           \
+apt install -y                                                           \
   ant                                                                         \
   default-jdk                                                                 \
 || fail
 
 msg "Installing Docs."
-sudo apt install -y doxygen || fail
+apt install -y doxygen || fail
 
 msg "All deps installed. Continuing with installation"
 
@@ -191,10 +191,10 @@ make -j $(($(nproc)+1)) || fail
 make -j $(($(nproc)+1)) test || fail
 msg "Installing Ceres Solver."
 
-sudo make -j $(($(nproc)+1)) install || fail
+make -j $(($(nproc)+1)) install || fail
 cd $DOWNLOAD_PATH
 
-sudo rm -rf opencv/build || fail
+rm -rf opencv/build || fail
 mcd opencv/build || fail
 
 # Configuring make
@@ -242,8 +242,8 @@ make -j $(($(nproc)+1)) || fail
 make -j $(($(nproc)+1)) test || fail
 
 msg "Installing OpenCV"
-sudo make -j $(($(nproc)+1)) install || fail
-sudo ldconfig || fail
+make -j $(($(nproc)+1)) install || fail
+ldconfig || fail
 
 # Finished
 msg "Installation finished for OpenCV"
